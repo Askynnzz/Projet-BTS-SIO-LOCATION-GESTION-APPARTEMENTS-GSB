@@ -1,0 +1,11 @@
+[From string (line 7) ]                          
+                                                 
+@startuml GSB_UML                                
+                                                 
+!define Table(name, fields) class name { fields }
+!define PK(field) field bold                     
+!define FK(field) field italic                   
+                                                 
+Table(appartements,                              
+^^^^^                                            
+ until001                                        

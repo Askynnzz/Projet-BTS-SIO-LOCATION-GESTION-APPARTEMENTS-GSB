@@ -1,0 +1,58 @@
+@startuml GSB
+left to right direction
+
+actor "Utilisateur" as User
+
+rectangle "Connexion" {
+    User --> (Renseigner informations)
+    (Renseigner informations) --> (Vérification triple)
+        (Vérification triple) -right-> (Page liste des appartements) : Client OU Locataire OU Propriétaire
+}
+
+rectangle "Client" {
+    User --> (Faire demande)
+    User --> (Voir mes demandes)
+    (Voir mes demandes) --> (Modifier demande)
+    (Voir mes demandes) --> (Supprimer demande)
+    (Voir mes demandes) --> (Consulter demande)
+    (Consulter demande) --> (Voir propositions d'appartement)
+    User --> (Visiter appartement)
+    User --> (Louer appartement)
+}
+
+rectangle "Locataire" {
+    User --> (Voir sa location)
+    User --> (Modifier informations)
+    User --> (Résilier location)
+}
+
+rectangle "Propriétaire" {
+    User --> (Traiter demandes clients)
+    User --> (Voir propriétés)
+    User --> (Verser cotisation)
+}
+
+rectangle "Base de données" {
+    rectangle "Tables" {
+        rectangle "Demande" as Demande
+        rectangle "Visite" as Visite
+        rectangle "Location" as Location
+        rectangle "Propriétés" as Proprietes
+    }
+    rectangle "Fonction SQL\nCalcul cotisation" as FonctionSQL
+}
+
+User --> Connexion
+Connexion --> Client
+Connexion --> Locataire
+Connexion --> Propriétaire
+
+Client -> Base_de_données : CRUD
+
+
+
+Propriétaire --> Base_de_données : Traitement demandes clients
+Propriétaire --> Base_de_données : SELECT Propriétés
+Propriétaire --> Base_de_données : SELECT FonctionSQL
+
+@enduml
